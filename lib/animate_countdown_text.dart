@@ -37,23 +37,6 @@ class AnimateCountdownText extends StatefulWidget {
       : assert(initDuration != null || dateTime != null, "One of initDuration and dateTime must not be null"),
         super(key: key);
 
-  AnimateCountdownText.reverse(
-      {Key? key,
-      this.initDuration,
-      this.dateTime,
-      required this.format,
-      this.expireDuration,
-      this.animationType = AnimationType.evaporation,
-      this.characterTextStyle = const TextStyle(),
-      this.suffixTextStyle = const TextStyle(),
-      this.interval = const Duration(seconds: 1),
-      this.onDone,
-      this.characterPadding = const EdgeInsets.all(1),
-      this.animationBuilder})
-      : this.reverse = true,
-        assert(initDuration != null || dateTime != null, "One of initDuration and dateTime must not be null"),
-        super(key: key);
-
   /// Init duration
   final Duration? initDuration;
 

@@ -62,11 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 animationType: AnimationType.fallDown),
             SizedBox(height: 30),
             Text("Bounce In & reverse", style: Theme.of(context).textTheme.headline6),
-            AnimateCountdownText.reverse(
-                initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
-                format: _formatHMS,
-                characterTextStyle: TextStyle(fontSize: 16),
-                animationType: AnimationType.bounceIn),
+            AnimateCountdownText(
+              initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
+              format: _formatHMS,
+              characterTextStyle: TextStyle(fontSize: 16),
+              animationType: AnimationType.bounceIn,
+              reverse: true,
+            ),
             SizedBox(height: 30),
             // Text("YMD", style: Theme.of(context).textTheme.headline6),
             // AnimateCountdownText(
@@ -75,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //     characterTextStyle: TextStyle(fontSize: 16),
             //     animationType: AnimationType.bounceIn),
             SizedBox(height: 30),
-            Text("DHMS", style: Theme.of(context).textTheme.headline6),
+            Text("Day Hour Minute Second", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
                 dateTime: DateTime(2020, 7, 16, 5, 13, 10),
                 format: (duration) => _formatDHMS(duration, false),
@@ -83,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 expireDuration: null,
                 animationType: AnimationType.bounceIn),
             SizedBox(height: 30),
-            Text("YMDHMS", style: Theme.of(context).textTheme.headline6),
+            Text("Year Month Day Hour Minute Second", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
                 dateTime: DateTime(2020, 4, 16, 5, 13, 10),
                 format: (duration) => _formatYMDHMS(duration, false),
@@ -118,13 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
     bool secondExist = format[3] != 0;
     return DurationFormat(
       day: dayExist ? "${format[0]}" : null,
-      daySuffix: "天",
+      daySuffix: "Day",
       hour: hourExist ? "${format[1]}" : null,
-      hourSuffix: "时",
+      hourSuffix: "Hour",
       minute: minuteExist ? "${format[2]}" : null,
-      minuteSuffix: "分",
+      minuteSuffix: "Min",
       second: secondExist ? "${format[3]}" : null,
-      secondSuffix: "秒",
+      secondSuffix: "Sec",
     );
   }
 
@@ -139,21 +141,21 @@ class _MyHomePageState extends State<MyHomePage> {
     bool timeUp = !yearExist && !monthExist && !dayExist && !hourExist && !minuteExist && !secondExist;
     return DurationFormat(
       year: yearExist ? "${format[0]}" : null,
-      yearSuffix: "年",
+      yearSuffix: "Year",
       month: monthExist ? "${format[1]}" : null,
-      monthSuffix: "月",
+      monthSuffix: "Mon",
       day: dayExist ? "${format[2]}" : null,
-      daySuffix: "天",
+      daySuffix: "Day",
       hour: hourExist ? "${format[3]}" : null,
-      hourSuffix: "时",
+      hourSuffix: "Hour",
       minute: minuteExist ? "${format[4]}" : null,
-      minuteSuffix: "分",
+      minuteSuffix: "Min",
       second: timeUp
           ? "0"
           : secondExist
               ? "${format[5]}"
               : null,
-      secondSuffix: "秒",
+      secondSuffix: "Sec",
     );
   }
 }
