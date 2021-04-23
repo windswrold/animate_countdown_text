@@ -2,7 +2,7 @@
 
 ### Preview:
 
-![preview.gif](example\\preview.gif)
+![preview.gif](example\preview.gif)
 
 ### Feature:
 
