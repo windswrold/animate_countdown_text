@@ -38,7 +38,8 @@ class _DigitState extends State<AnimateUnit> with SingleTickerProviderStateMixin
   @override
   void didUpdateWidget(covariant AnimateUnit oldWidget) {
     if (oldWidget.initValue != widget.initValue) {
-      _currentValue = widget.initValue;
+      _streamSubscription?.cancel();
+      _init();
     }
     super.didUpdateWidget(oldWidget);
   }
