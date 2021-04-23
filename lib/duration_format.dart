@@ -61,4 +61,20 @@ class DurationFormat {
   String toString() {
     return "${year ?? ''}${yearSuffix ?? ''}${month ?? ''}${monthSuffix ?? ''}${day ?? ''}${daySuffix ?? ''}${hour ?? ''}${hourSuffix ?? ''}${minute ?? ''}${minuteSuffix ?? ''}${second ?? ''}${secondSuffix ?? ''}";
   }
+
+  bool sameFormatWith(DurationFormat? another) {
+    if (another == null) return false;
+    return this.showYear == another.showYear &&
+        this.showYearSuffix == another.showYearSuffix &&
+        this.showMonth == another.showMonth &&
+        this.showMonthSuffix == another.showMonthSuffix &&
+        this.showDay == another.showDay &&
+        this.showDaySuffix == another.showDaySuffix &&
+        this.showHour == another.showHour &&
+        this.showHourSuffix == another.showHourSuffix &&
+        this.showMinute == another.showMinute &&
+        this.showMinuteSuffix == another.showMinuteSuffix &&
+        this.showSecond == another.showSecond &&
+        this.showSecondSuffix == another.showSecondSuffix;
+  }
 }

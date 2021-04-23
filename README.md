@@ -1,5 +1,9 @@
 # Countdown text with animation.
 
+### Preview:
+
+![preview.gif](example\\preview.gif)
+
 ### Feature:
 
 - Auto calculate time pass.
@@ -31,7 +35,8 @@ AnimateCountdownText(
 |TextStyle suffixTextStyle|Suffix TextStyle|
 |Duration interval|Interval to refresh view, default to 1 second|
 |bool reverse|Direction, default to false. Set it to true if you want to count reverse|
-|Duration? expireDuration|The max duration that should mark countdown as done, If not null, [format] will return this as duration params when timeUp|
+|Duration? expireDuration|The max duration that should mark countdown as done, If not null, [format] will return this as duration params when timeUp. Default to Duration.zero.|
+|Duration? reverseExpireDuration|The max duration that should mark reverse countdown as done,<br/> If not null, [format] will return this as duration when timeUp. Default to null.|
 |VoidCallback? onDone|Callback when timeUp. Only work when expireDuration is not null.|
 |EdgeInsets characterPadding|Padding of characters, including character and suffix|
 |AnimationBuilder? animationBuilder|Custom animation builder. |

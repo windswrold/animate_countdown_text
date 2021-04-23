@@ -28,6 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  DateTime dateTime = DateTime.now().add(Duration(days: 5, hours: 2, minutes: 14));
+  DateTime reverseDateTime = DateTime.now().subtract(Duration(days: 6, hours: 6, minutes: 26));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,32 +73,47 @@ class _MyHomePageState extends State<MyHomePage> {
               reverse: true,
             ),
             SizedBox(height: 30),
-            // Text("YMD", style: Theme.of(context).textTheme.headline6),
-            // AnimateCountdownText(
-            //     dateTime: DateTime(2021, 4, 15, 12, 31, 10),
-            //     format: (duration) => _formatYMD(duration, false),
-            //     characterTextStyle: TextStyle(fontSize: 16),
-            //     animationType: AnimationType.bounceIn),
-            SizedBox(height: 30),
             Text("Day Hour Minute Second", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
-                dateTime: DateTime(2020, 7, 16, 5, 13, 10),
+                dateTime: dateTime,
                 format: (duration) => _formatDHMS(duration, false),
                 characterTextStyle: TextStyle(fontSize: 16),
                 expireDuration: null,
                 animationType: AnimationType.bounceIn),
             SizedBox(height: 30),
-            Text("Year Month Day Hour Minute Second", style: Theme.of(context).textTheme.headline6),
+            Text("Year Month Day Hour Minute Second, Reverse", style: Theme.of(context).textTheme.bodyText2),
             AnimateCountdownText(
-                dateTime: DateTime(2020, 4, 16, 5, 13, 10),
-                format: (duration) => _formatYMDHMS(duration, false),
+                dateTime: reverseDateTime,
+                format: (duration) => _formatYMDHMS(duration, true),
                 characterTextStyle: TextStyle(fontSize: 16),
-                expireDuration: null,
+                reverse: true,
                 animationType: AnimationType.bounceIn),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton(onPressed: _addOneHour, child: Text("Add")),
+                OutlinedButton(onPressed: _subtractOneHour, child: Text("Subtract"))
+              ],
+            )
           ],
         ),
       ),
     );
+  }
+
+  _addOneHour() {
+    setState(() {
+      dateTime = dateTime.add(Duration(hours: 1));
+      reverseDateTime = reverseDateTime.add(Duration(hours: 1));
+    });
+  }
+
+  _subtractOneHour() {
+    setState(() {
+      dateTime = dateTime.subtract(Duration(hours: 1));
+      reverseDateTime = reverseDateTime.subtract(Duration(hours: 1));
+    });
   }
 
   DurationFormat _formatHMS(Duration duration) {

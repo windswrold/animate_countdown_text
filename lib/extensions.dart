@@ -14,14 +14,15 @@ extension DurationExt on Duration {
     DateTime end;
     bool negative = this.isNegative;
 
-    if (negative) {
-      start = to;
-      end = now;
-    } else {
+    if (now.isAtSameMomentAs(to)) return [0, 0, 0];
+
+    if (now.isBefore(to)) {
       start = now;
       end = to;
+    } else {
+      start = to;
+      end = now;
     }
-
     var distYear = end.year - start.year;
     var distMonth = end.month - start.month;
     var distDay = end.day - start.day;

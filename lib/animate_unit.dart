@@ -9,12 +9,14 @@ class AnimateUnit<String> extends StatefulWidget {
   final EdgeInsets padding;
 
   AnimateUnit(
-      {required this.itemStream,
+      {Key? key,
+      required this.itemStream,
       required this.initValue,
       required this.textStyle,
       required this.animationType,
       required this.padding,
-      this.animationBuilder});
+      this.animationBuilder})
+      : super(key: key);
 
   @override
   _DigitState createState() => _DigitState();
@@ -29,8 +31,16 @@ class _DigitState extends State<AnimateUnit> with SingleTickerProviderStateMixin
 
   @override
   void initState() {
-    super.initState();
     _init();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimateUnit oldWidget) {
+    if (oldWidget.initValue != widget.initValue) {
+      _currentValue = widget.initValue;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   _init() {
@@ -115,7 +125,7 @@ class _DigitState extends State<AnimateUnit> with SingleTickerProviderStateMixin
 
   @override
   void dispose() {
-    if (_streamSubscription != null) _streamSubscription!.cancel();
+    _streamSubscription?.cancel();
     super.dispose();
   }
 }

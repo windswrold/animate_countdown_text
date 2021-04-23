@@ -1,2 +1,7 @@
 ## [1.0.0] - 2021/4/15.
-* initial release.
+ * initial release.
+## [1.1.0] - 2021/4/23.
+ * add param reverseExpireDuration.
+ * fix bugs when update widget.
+ * fix bugs in calculateYMDDistance extension.
+ * update example.
