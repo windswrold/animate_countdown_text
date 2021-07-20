@@ -14,9 +14,7 @@
 
 ```dart
 AnimateCountdownText(
-              initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
-              // Must provide initDuration or dateTime
-              // dateTime: DateTime(2020, 7, 16, 5, 13, 10),
+               dateTime: DateTime(2020, 7, 16, 5, 13, 10),// Must provide
               format: (duration)=>DurationFormat(day:duration.inDays),
               characterTextStyle: TextStyle(fontSize: 16),
               animationType: AnimationType.bounceIn,
@@ -26,9 +24,9 @@ AnimateCountdownText(
 
 ### All parameters:
 
-|Duration? initDuration|Init Duration， One of this and [dateTime] must provide.|
+|Param|Desc|
 |--|--|
-|DateTime? dateTime|Compared DateTime,  One of this and [initDuration] must provide.|
+|DateTime? dateTime|Compared DateTime, must provide.|
 |FormatDuration format|Transform duration to human-readable format, (Duration)=>FormatDuration|
 |AnimationType animationType|Build-in animation type, will ignore this if [animationBuilder] is provided|
 |TextStyle characterTextStyle|Character TextStyle|
