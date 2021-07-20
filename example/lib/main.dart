@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text("Evaporation", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
-                initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
+                dateTime: dateTime,
                 format: _formatHMS,
                 characterTextStyle: TextStyle(fontSize: 16),
                 suffixTextStyle: TextStyle(fontSize: 14),
@@ -52,21 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(height: 30),
             Text("Scale In", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
-                initDuration: Duration(minutes: 1),
+                dateTime: dateTime,
                 format: _formatHMS,
                 characterTextStyle: TextStyle(fontSize: 16),
                 animationType: AnimationType.scaleIn),
             SizedBox(height: 30),
             Text("Fall Down", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
-                initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
+                dateTime: dateTime,
                 format: _formatHMS,
                 characterTextStyle: TextStyle(fontSize: 16),
                 animationType: AnimationType.fallDown),
             SizedBox(height: 30),
             Text("Bounce In & reverse", style: Theme.of(context).textTheme.headline6),
             AnimateCountdownText(
-              initDuration: Duration(days: 450, hours: 4, minutes: 10, seconds: 50),
+              dateTime: dateTime,
               format: _formatHMS,
               characterTextStyle: TextStyle(fontSize: 16),
               animationType: AnimationType.bounceIn,

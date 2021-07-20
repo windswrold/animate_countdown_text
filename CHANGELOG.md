@@ -7,3 +7,6 @@
  * update example.
 ## [1.1.1] - 2021/4/23.
  * fix bugs when update unit.
+## [1.1.2] - 2021/7/20.
+ * fix timeLeft calculate bug after phone wakeup.
+ * remove initDuration param.

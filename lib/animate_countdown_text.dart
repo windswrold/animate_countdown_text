@@ -6,8 +6,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
 part 'animate_unit.dart';
+
 part 'animation_type.dart';
+
 part "duration_format.dart";
+
 part 'extensions.dart';
 
 ///
@@ -17,13 +20,13 @@ part 'extensions.dart';
 ///
 
 typedef FormatDuration = DurationFormat Function(Duration duration);
-typedef AnimationBuilder = Widget Function(Widget child, String? preCharacter, String character);
+typedef AnimationBuilder = Widget Function(
+    Widget child, String? preCharacter, String character);
 
 class AnimateCountdownText extends StatefulWidget {
   AnimateCountdownText(
       {Key? key,
-      this.initDuration,
-      this.dateTime,
+      required this.dateTime,
       required this.format,
       this.animationType = AnimationType.evaporation,
       this.characterTextStyle = const TextStyle(),
@@ -35,15 +38,12 @@ class AnimateCountdownText extends StatefulWidget {
       this.characterPadding = const EdgeInsets.all(1),
       this.animationBuilder,
       this.reverse = false})
-      : assert(initDuration != null || dateTime != null, "One of initDuration and dateTime must not be null"),
-        assert(!interval.isNegative && interval != Duration.zero, "Interval must positive"),
+      : assert(!interval.isNegative && interval != Duration.zero,
+            "Interval must positive"),
         super(key: key);
 
-  /// Init duration
-  final Duration? initDuration;
-
   /// DateTime that should be compared with
-  final DateTime? dateTime;
+  final DateTime dateTime;
 
   /// Format Duration to [DurationFormat]
   final FormatDuration format;
@@ -75,7 +75,7 @@ class AnimateCountdownText extends StatefulWidget {
   /// default to null
   final Duration? reverseExpireDuration;
 
-  /// Callback when [initDuration] == [expireDuration]/[reverseExpireDuration].
+  /// Callback when duration == [expireDuration]/[reverseExpireDuration].
   final VoidCallback? onDone;
 
   /// Padding of characters
@@ -98,25 +98,22 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
   @override
   void initState() {
     super.initState();
-    _durationFormatStream = Stream<DurationFormat>.periodic(widget.interval, (_) {
-      if (widget.reverse) {
-        timeLeft += widget.interval;
-      } else {
-        timeLeft -= widget.interval;
-      }
+    _durationFormatStream =
+        Stream<DurationFormat>.periodic(widget.interval, (_) {
+      _updateTimeLeft();
       _checkAndHandleTimeUp();
       return widget.format(timeLeft);
     }).asBroadcastStream();
     _init();
     subscription = _durationFormatStream.listen((format) {
-      if (!this._initDurationFormat.sameFormatWith(format)) _refreshInitDurationFormat(format);
+      if (!this._initDurationFormat.sameFormatWith(format))
+        _refreshInitDurationFormat(format);
     });
   }
 
   @override
   void didUpdateWidget(covariant AnimateCountdownText oldWidget) {
-    if (oldWidget.initDuration != this.widget.initDuration ||
-        oldWidget.dateTime != this.widget.dateTime ||
+    if (oldWidget.dateTime != this.widget.dateTime ||
         oldWidget.animationType != this.widget.animationType ||
         oldWidget.interval != this.widget.interval ||
         oldWidget.expireDuration != this.widget.expireDuration ||
@@ -128,23 +125,28 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
   }
 
   void _init() {
-    this.expireDuration = widget.reverse ? widget.reverseExpireDuration : widget.expireDuration;
+    this.expireDuration =
+        widget.reverse ? widget.reverseExpireDuration : widget.expireDuration;
 
-    Duration duration;
-    if (widget.dateTime != null) {
-      DateTime now = DateTime.now();
-      if (widget.dateTime!.isUtc) {
-        now = now.toUtc();
-      }
-      duration = widget.reverse ? now.difference(widget.dateTime!) : widget.dateTime!.difference(now);
-    } else {
-      duration = widget.initDuration!;
-    }
+    _updateTimeLeft();
 
-    timeLeft = duration;
     _checkAndHandleTimeUp();
 
     _initDurationFormat = widget.format(timeLeft);
+  }
+
+  _updateTimeLeft() {
+    Duration duration;
+
+    DateTime now = DateTime.now();
+    if (widget.dateTime.isUtc) {
+      now = now.toUtc();
+    }
+    duration = widget.reverse
+        ? now.difference(widget.dateTime)
+        : widget.dateTime.difference(now);
+
+    timeLeft = duration;
   }
 
   _refreshInitDurationFormat(DurationFormat newDurationFormat) {
@@ -156,7 +158,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
 
   _checkAndHandleTimeUp() {
     if (this.expireDuration != null) {
-      if (widget.reverse && timeLeft >= this.expireDuration! || !widget.reverse && timeLeft <= this.expireDuration!) {
+      if (widget.reverse && timeLeft >= this.expireDuration! ||
+          !widget.reverse && timeLeft <= this.expireDuration!) {
         widget.onDone?.call();
         timeLeft = this.expireDuration!;
       }
@@ -168,7 +171,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
     List<Widget> row = [];
     // Year
     if (_initDurationFormat.showYear) {
-      row.add(_buildAnimateUnit((event) => event?.year, _initDurationFormat.year!));
+      row.add(
+          _buildAnimateUnit((event) => event?.year, _initDurationFormat.year!));
       if (_initDurationFormat.showYearSuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.yearSuffix!));
       }
@@ -176,7 +180,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
 
     // Month
     if (_initDurationFormat.showMonth) {
-      row.add(_buildAnimateUnit((event) => event?.month, _initDurationFormat.month!));
+      row.add(_buildAnimateUnit(
+          (event) => event?.month, _initDurationFormat.month!));
       if (_initDurationFormat.showMonthSuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.monthSuffix!));
       }
@@ -184,7 +189,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
 
     // Day
     if (_initDurationFormat.showDay) {
-      row.add(_buildAnimateUnit((event) => event?.day, _initDurationFormat.day!));
+      row.add(
+          _buildAnimateUnit((event) => event?.day, _initDurationFormat.day!));
       if (_initDurationFormat.showDaySuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.daySuffix!));
       }
@@ -192,7 +198,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
 
     // Hour
     if (_initDurationFormat.showHour) {
-      row.add(_buildAnimateUnit((event) => event?.hour, _initDurationFormat.hour!));
+      row.add(
+          _buildAnimateUnit((event) => event?.hour, _initDurationFormat.hour!));
       if (_initDurationFormat.showHourSuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.hourSuffix!));
       }
@@ -200,14 +207,16 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
 
     // Minute
     if (_initDurationFormat.showMinute) {
-      row.add(_buildAnimateUnit((event) => event?.minute, _initDurationFormat.minute!));
+      row.add(_buildAnimateUnit(
+          (event) => event?.minute, _initDurationFormat.minute!));
       if (_initDurationFormat.showMinuteSuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.minuteSuffix!));
       }
     }
     // Second
     if (_initDurationFormat.showSecond) {
-      row.add(_buildAnimateUnit((event) => event?.second, _initDurationFormat.second!));
+      row.add(_buildAnimateUnit(
+          (event) => event?.second, _initDurationFormat.second!));
       if (_initDurationFormat.showSecondSuffix) {
         row.add(_buildSuffixItem(_initDurationFormat.secondSuffix!));
       }
@@ -220,7 +229,8 @@ class _AnimateCountdownTextState extends State<AnimateCountdownText> {
   }
 
   /// Animate content
-  _buildAnimateUnit(String? Function(DurationFormat?) streamConvert, String initValue) {
+  _buildAnimateUnit(
+      String? Function(DurationFormat?) streamConvert, String initValue) {
     return AnimateUnit(
         itemStream: _durationFormatStream.map(streamConvert),
         initValue: initValue,
