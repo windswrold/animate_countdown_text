@@ -10,3 +10,5 @@
 ## [1.1.2] - 2021/7/20.
  * fix timeLeft calculate bug after phone wakeup.
  * remove initDuration param.
+## [1.1.3] - 2021/7/20.
+ * fix broadcastStream not canceled after disposed.
