@@ -71,7 +71,7 @@ class _DigitState extends State<AnimateUnit> with SingleTickerProviderStateMixin
       widgets.add(Container(
           padding: widget.padding,
           alignment: Alignment.center,
-          child: _buildAnimation(child: Text(character, style: widget.textStyle), character: character, index: i)));
+          child: _buildAnimation(child: Text(character, style: widget.textStyle), character: character, index: 0)));
     // }
     return Row(
       children: widgets,
