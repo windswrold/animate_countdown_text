@@ -65,14 +65,14 @@ class _DigitState extends State<AnimateUnit> with SingleTickerProviderStateMixin
     if (_currentValue == null) return SizedBox();
 
     final widgets = <Widget>[];
-    final strList = _currentValue!.split('');
-    for (int i = 0; i < strList.length; i++) {
-      final character = strList[i];
+    // final strList = _currentValue!.split('');
+    // for (int i = 0; i < strList.length; i++) {
+      final character = _currentValue!;
       widgets.add(Container(
           padding: widget.padding,
           alignment: Alignment.center,
           child: _buildAnimation(child: Text(character, style: widget.textStyle), character: character, index: i)));
-    }
+    // }
     return Row(
       children: widgets,
     );
